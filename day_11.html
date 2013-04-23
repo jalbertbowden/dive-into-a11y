@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>Day 11: Skipping over navigation links - Dive Into Accessibility</title>
+<link rel="start" title="Home page" href="index.html" />
+<link rel="contents" title="Table of contents" href="table_of_contents.html" />
+<link rel="search" title="Search this site" href="http://diveintoaccessibility.org/mt/mt-search.cgi" />
+<link rel="help" title="Access features of this site" href="accessibility_statement.html" />
+<link rel="author" title="Send feedback to the author" href="mailto:feedback@diveintoaccessibility.org" />
+<link rel="copyright" title="Terms of use" href="terms_of_use.html" />
+<link rel="up" title="Table of contents" href="table_of_contents.html" />
+<link rel="first" title="Day 1: Jackie" href="day_1.html" />
+<link rel="last" title="Accessibility statement" href="accessibility_statement.html" />
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link rel="stylesheet" href="css/common.css" type="text/css" />
+<link rel="stylesheet" href="css/screen.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="css/screen.css" type="text/css" media="projection" />
+<link rel="stylesheet" href="css/print.css" type="text/css" media="print" />
+<link rel="stylesheet" href="css/aural.css" type="text/css" media="aural" />
+
+
+<link rel="prev" href="day_10.html" title="Day 10: Presenting your main content first" />
+<link rel="next" href="day_12.html" title="Day 12: Using color safely" />
+</head>
+<body>
+
+<div id="logo"><div class="inner">
+<h1 class="title">
+<a href="index.html" accesskey="1">Dive Into Accessibility</a>
+</h1>
+<p>30 days to a more accessible web site</p>
+<a class="skip" href="day_11.html#startnavigation">Skip to navigation</a>
+<span class="divider">&nbsp;</span>
+</div></div>
+
+
+<p></p>
+
+
+<div id="main"><div class="inner">
+
+<div class="entry">
+<h2 class="entrysubject">Day 11: Skipping over navigation links</h2>
+<p class="firstparagraph">If you didn't manage to hack your templates to <a title="Day 10: Presenting your main content first" href="day_10.html">present your main content first</a>, here's a compromise: provide an link to skip over your navigation links.  It's not a perfect solution (presenting your main content first is better), but it's an accepted compromise that many sites use.</p>
+
+<p>This "skip link" is just a regular <code class="sgmltag">&lt;a&gt;</code> tag, like any other link, but we'll use <acronym title="cascading style sheets">CSS</acronym> to hide it from visual browsers like Internet Explorer and Netscape.  It won't affect your page layout at all; it will be completely invisible.</p>
+
+<h3>Who benefits?</h3>
+
+<ol>
+<li><a href="day_5.html">Marcus</a> benefits.  When he visits your page, <a href="http://www.fdisk.com/doslynx/lynxport.htm">Lynx</a> will display the link and allow him to skip over your navigation bar and go straight to your main content.  See <a href="day_10.html">Day 10: Presenting your main content first</a> for an example of why this is so important.</li>
+<li><a href="day_1.html">Jackie</a> benefits.  When she visits your page, <a href="http://www.freedomscientific.com/fs_products/software_jaws.asp">JAWS</a> will read the skip link and allow her to skip over your navigation bar and go straight to your main content.</li>
+</ol>
+
+<h3>How to do it</h3>
+
+<p>First, use <a href="http://www.delorie.com/web/lynxview.html">Lynx Viewer</a> on your own home page to determine whether your navigation bar is presented before your main content.  If your main content comes first, this tip does not apply to you; enjoy your day off.</p>
+
+<p>Now define a <acronym title="cascading style sheets">CSS</acronym> rule for the skip links, to make them invisible to visual browsers.  If you have an external stylesheet, put this rule at the end of it.  (If you have multiple external stylesheets, put this rule in the Netscape 4-friendly one.)  If you just have a <code class="sgmltag">&lt;style&gt;</code> section at the top of your template, add this rule immediately after the <code class="sgmltag">&lt;style&gt;</code> tag.</p>
+
+<blockquote>
+<pre><code class="sgmltag">.skiplink {display:none}</code></pre>
+</blockquote>
+
+<p>Next, insert the actual skip link immediately after your site name and site description.  Can't find them?  Search for the appropriate template variables.</p>
+
+<ul>
+<li>Movable Type: search for <code>&lt;$MTBlogTitle$&gt;</code> and <code>&lt;$MTBlogDescription$&gt;</code>.</li>
+<li>Greymatter: there is no specific template variable; search for the name and tagline of your web site.</li>
+<li>Radio: search for <code>&lt;%siteName%&gt;</code> and <code>&lt;%description%&gt;</code>.</li>
+<li>Manila: search for <code>{homePageLink (siteName)}</code> and <code>{tagLine}</code>.</li>
+<li>Blogger: search for <code>&lt;$BlogTitle$&gt;</code>.</li>
+</ul>
+
+<p>Found them?  Immediately <em>after</em> your site name and site description, insert the skip link:</p>
+
+<blockquote>
+<p><code class="sgmltag">&lt;a class="skiplink" href="#startcontent"&gt;Skip over navigation&lt;/a&gt;</code></p>
+</blockquote>
+
+<p>OK, now you need an anchor tag where the skip link should point to; this should be at the start of your main content.  Can't find your main content?  Don't panic.  Template variables save the day again.</p>
+
+<ul>
+<li>Movable Type: search for <code>&lt;MTEntries&gt;</code>.</li>
+<li>Greymatter: on your Main Index Template, search for <code>{{logbody}}</code>.  On your Entry Page Templates, search for <code>{{entrymainbody}}</code>.</li>
+<li>Radio: search for <code>&lt;%bodytext%&gt;</code>.</li>
+<li>Manila: search for <code>{bodytext}</code>.</li>
+<li>Blogger: search for <code>&lt;Blogger&gt;</code>.</li>
+</ul>
+
+<p>Now, the format of your anchor tag depends on what kind of <acronym title="hypertext markup language">HTML</acronym> you're using.  <a href="day_6.html">Look at your DOCTYPE</a>, then do one of the following:</p>
+
+<ol>
+<li><p>If you're using any variant of <code>HTML 4</code>, add this just before your main content:</p>
+<blockquote>
+<p><code class="sgmltag">&lt;a name="startcontent"&gt;&lt;/a&gt;</code></p>
+</blockquote>
+</li>
+<li><p>If you're using any variant of <code>XHTML 1.0</code>, add this just before your main content:</p>
+<blockquote>
+<p><code class="sgmltag">&lt;a name="startcontent" id="startcontent"&gt;&lt;/a&gt;</code></p>
+</blockquote>
+</li>
+<li><p>If you're using <code>XHTML 1.1</code>, add this just before your main content:</p>
+<blockquote>
+<p><code class="sgmltag">&lt;a id="startcontent"&gt;&lt;/a&gt;</code></p>
+</blockquote>
+</li>
+</ol>
+
+<p>You should include this kind of skip link on every page of your web site, so add it to all your templates.</p>
+<span class="divider">&nbsp;</span>
+</div> <!--entry-->
+
+<div class="pageturn"><div class="inner">
+<a href="day_10.html">&lt;&lt; Day 10: Presenting your main content first</a> |
+<a href="table_of_contents.html">Contents</a>
+| <a href="day_12.html">Day 12: Using color safely &gt;&gt;</a>
+<span class="divider">&nbsp;</span>
+</div></div> <!--pageturn-->
+
+</div></div> <!--main-->
+
+<div id="menu">
+<a class="skip" name="startnavigation" id="startnavigation"></a>
+
+<form id="searchform" method="get" action="http://diveintoaccessibility.org/mt/mt-search.cgi">
+<p id="searchlabel"><label for="search">Search this site:</label></p>
+<p id="searchinput"><input type="text" size="18" name="search" id="search" value=" " /></p>
+<p id="searchsubmit"><input type="submit" value="Search" /></p>
+</form>
+
+
+<div class="menusection"><div class="inner">
+
+<h2 class="invisibletitle">Site links</h2>
+
+<a class="skip" href="day_11.html#endinternal">Skip over site links</a>
+
+<ul>
+<li><a title="accessibility features of this site" href="accessibility_statement.html" accesskey="0">Accessibility statement</a></li>
+<li><a href="http://diveintoaccessibility.org/mt/mt-search.cgi" accesskey="4">Advanced search</a></li>
+<li><a href="table_of_contents.html" accesskey="3">Table of contents</a></li>
+<li><a href="by_person.html">Tips by person</a></li>
+<li><a href="by_disability.html">Tips by disability</a></li>
+<li><a href="by_design_principle.html">Tips by design principle</a></li>
+<li><a href="by_web_browser.html">Tips by web browser</a></li>
+<li><a href="by_publishing_tool.html">Tips by publishing tool</a></li>
+<li><a title="send email to the author" href="mailto:feedback@diveintoaccessibility.org" accesskey="9">Feedback</a></li>
+<li><a title="Copyright and licensing information" href="terms_of_use.html" accesskey="8">Terms of use</a></li>
+</ul>
+
+<a class="skip" id="endinternal"></a>
+
+</div></div> <!--.menusection-->
+
+
+
+<div id="footer"><div class="inner">
+
+<address>Copyright &copy; 2002 Mark Pilgrim</address> 
+
+<p>Powered by <a href="http://www.movabletype.org/">Movable Type</a></p>
+
+</div></div> <!--footer-->
+
+
+
+</div> <!--menu-->
+
+<div id="navigation">
+<p class="breadcrumb">You are here:
+<a href="index.html">Home</a> > 
+<a href="table_of_contents.html">Table of contents</a> > 
+<span class="currentpage">Day 11: Skipping over navigation links</span>
+</p>
+</div><!--navigation-->
+
+</body>
+</html>
